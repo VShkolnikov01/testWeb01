@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.2.3" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Point of Entry Testing</title>
+<style type='text/css'>
+/* LyX Provided Styles */
+table { border-collapse: collapse; display: inline-block; }
+td { border: 1px solid black; padding: 0.5ex; }
+
+/* Layout-provided Styles */
+div.title {
+font-weight: bold;
+font-style: normal;
+font-variant: small-caps;
+font-size: x-large;
+margin-bottom: 1ex;
+text-align: center;
+
+}
+div.author {
+font-style: normal;
+font-variant: small-caps;
+font-size: large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: center;
+
+}
+div.standard {
+text-align: left;
+
+}
+div.plain_layout {
+text-align: left;
+
+}
+h2.section_ {
+font-weight: normal;
+font-style: normal;
+font-variant: small-caps;
+font-size: medium;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: center;
+
+}
+div.float {
+border: 2px solid black;
+text-align: center;
+}
+div.float-caption {
+text-align: center;
+border: 2px solid black;
+padding: 1ex;
+margin: 1ex;
+}
+
+
+</style>
+</head>
+<body dir="auto">
+<div class="title"><a id='magicparlabel-3' />Point of Entry Testing</div>
+<div class="author"><a id='magicparlabel-4' />Viktor Shkolnikov</div>
+<div class="standard"><a id='magicparlabel-5' />With the current pandemic, there is a sentiment that the pandemic could have been prevented by testing individuals entering the country and quarantining those testing positive. Here I explore how feasible is this with current tests and what test specifications are necessary to make this feasible. </div>
+
+<div class="standard"><a id='magicparlabel-6' />Let's start with how would point of entry testing and quarantining look like at the beginning of an epidemic. At the beginning of an epidemic, the fraction of individuals infected is low, say 1 in 10 million (the population of united states is order 300 million). Therefore the probability that any person arriving at point of entry has the disease, <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>=</mo><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>7</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>. For a (pretty good) COVID 19 test, the <a href="https://abbott.mediaroom.com/2020-05-21-Abbott-Releases-Interim-Clinical-Study-Data-on-ID-NOW-COVID-19-Rapid-Test-Showing-Strong-Agreement-to-Lab-Based-Molecular-PCR-Tests ">sensitivity is around 95%, and the specificity is around 99%</a>. Sensitivity, otherwise known as the true positive rate is the probability of testing positive given that you have the disease <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub><mo>|</mo><mi>D</mi>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mn>.</mn>
+  </mrow>
+ </mrow></math> Specificity is the true negative rate, or <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn><mo>-</mo><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub><mo>|</mo>
+    <mover>
+     <mrow><mi>D</mi>
+     </mrow><mo stretchy="true">&macr;</mo>
+    </mover>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math>, where <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub><mo>|</mo>
+    <mover>
+     <mrow><mi>D</mi>
+     </mrow><mo stretchy="true">&macr;</mo>
+    </mover>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> is the probability of testing positive while not having the disease. Thus, putting this together (via Bayes rule), <math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>=</mo>
+   <mfrac>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>p</mi>
+        </mrow>
+       </msub><mo>|</mo><mi>D</mi>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <msub>
+       <mrow><mi>T</mi>
+       </mrow>
+       <mrow><mi>p</mi>
+       </mrow>
+      </msub>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+   </mfrac><mo>=</mo>
+   <mfrac>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>p</mi>
+        </mrow>
+       </msub><mo>|</mo><mi>D</mi>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>p</mi>
+        </mrow>
+       </msub><mo>|</mo><mi>D</mi>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>+</mo><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>p</mi>
+        </mrow>
+       </msub><mo>|</mo>
+       <mover>
+        <mrow><mi>D</mi>
+        </mrow><mo stretchy="true">&macr;</mo>
+       </mover>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mover>
+       <mrow><mi>D</mi>
+       </mrow><mo stretchy="true">&macr;</mo>
+      </mover>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+   </mfrac>
+  </mrow>
+ </mrow></math>Substituting the values above, we obtain <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo> &ap; </mo><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>5</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math> or 1 in 100,000. For every 100 thousand people that you quarantine, you only quarantine a single person with a disease. This is fairly outrageous. We tabulate the <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> as a function of disease prevalence, <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> in the table below.  Only when about 1 in 100 people have the disease, will you be roughly quarantining one healthy person per one person with the disease. This is probably acceptable. For the US healthcare system, there is a total of about <a href="https://www.aha.org/statistics/fast-facts-us-hospitals">1 million hospital beds</a>; order 10% of them are meant for intensive care. There is order 300 million people in US. Therefore the US is roughly equipped to handle 0.3% of its population in inpatient care and 0.03% in intensive care. Therefore, if 1 in 100 of the people that have the disease need intensive care, when 1 in 100 have a disease, there is an additional 0.01% of the population that requires intensive care, or 30% of the intensive care capacity. The health system might be overwhelmed at this point. Let's assume that the healthcare system can handle 3% increased capacity comfortably. Thus, it can tolerate a disease prevalence of <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>3</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>. This requires that you quarantine nine healthy people per one person with the disease - something that may be grudgingly acceptable. And I mean seriously grudgingly. Generally people fly to see other people, and to see them for a short period of time. These are the business and vacation flights. People generally do not plan trips so that they can be quarantined at either end. The probability of quarantine is the probability of testing positive,<math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <msub>
+    <mrow><mi>T</mi>
+    </mrow>
+    <mrow><mi>p</mi>
+    </mrow>
+   </msub>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math><math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <msub>
+    <mrow><mi>T</mi>
+    </mrow>
+    <mrow><mi>p</mi>
+    </mrow>
+   </msub>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>=</mo><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub><mo>|</mo><mi>D</mi>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>+</mo><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub><mo>|</mo>
+    <mover>
+     <mrow><mi>D</mi>
+     </mrow><mo stretchy="true">&macr;</mo>
+    </mover>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mover>
+    <mrow><mi>D</mi>
+    </mrow><mo stretchy="true">&macr;</mo>
+   </mover>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math>Substituting in the values above, probability of being quarantined is about 1% when disease prevalence <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> is between <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>7</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math> and <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>3</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>, 2% when <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> is <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>2</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>, and rightfully 10% when <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> is <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>1</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>. Having another mechanism with 1% chance of derailing your trip, would probably be accepted but again quite grudgingly. It would not surprise me if allegations of wrongful quarantine slung at airport officials as well as the test maker. </div>
+<div class='float-table'><div class="plain_layout"><a id='magicparlabel-14' /><span class='float-caption-Standard float-caption float-caption-standard'>Table 1:  Probability of having the disease given a positive test as a function of disease prevalence. </span></div>
+
+
+
+<div class="plain_layout"><a id='magicparlabel-19' /><table><tbody><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-44' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-47' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>p</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math></div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-50' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>7</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-53' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>5</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-56' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>6</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-59' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>4</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-62' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>5</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-65' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>3</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-68' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>4</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-71' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>2</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-74' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>3</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-77' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>1</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-80' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>2</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-83' />0.5</div>
+</td>
+</tr><tr><td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-86' /><math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>1</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math></div>
+</td>
+<td align='center' valign='top'>
+<div class="plain_layout"><a id='magicparlabel-89' />0.9</div>
+</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-90' />Let's assume that we begin quarantining when disease prevalence is <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>3</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>. For every person who we do not quarantine, how many have the disease? In other words, what is <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>n</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math>?<math display="block" xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>n</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>=</mo>
+   <mfrac>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>n</mi>
+        </mrow>
+       </msub><mo>|</mo><mi>D</mi>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <msub>
+       <mrow><mi>T</mi>
+       </mrow>
+       <mrow><mi>n</mi>
+       </mrow>
+      </msub>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+   </mfrac><mo>=</mo>
+   <mfrac>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>n</mi>
+        </mrow>
+       </msub><mo>|</mo><mi>D</mi>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+    <mrow>
+     <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>n</mi>
+        </mrow>
+       </msub><mo>|</mo><mi>D</mi>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+<mi>D</mi>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo>+</mo><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mrow>
+       <msub>
+        <mrow><mi>T</mi>
+        </mrow>
+        <mrow><mi>n</mi>
+        </mrow>
+       </msub><mo>|</mo>
+       <mover>
+        <mrow><mi>D</mi>
+        </mrow><mo stretchy="true">&macr;</mo>
+       </mover>
+      </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+      <mover>
+       <mrow><mi>D</mi>
+       </mrow><mo stretchy="true">&macr;</mo>
+      </mover>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+     </mrow>
+    </mrow>
+   </mfrac>
+  </mrow>
+ </mrow></math>Sensitivity is <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mn>1</mn><mo>-</mo><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>n</mi>
+     </mrow>
+    </msub><mo>|</mo><mi>D</mi>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math> and specificity is equal to <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>n</mi>
+     </mrow>
+    </msub><mo>|</mo>
+    <mover>
+     <mrow><mi>D</mi>
+     </mrow><mo stretchy="true">&macr;</mo>
+    </mover>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+
+  </mrow>
+ </mrow></math>. Substituting in above values, <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <mrow>
+  <mrow><mi>P</mi><mo form='prefix' fence='true' stretchy='true' symmetric='true'>(</mo>
+
+   <mrow><mi>D</mi><mo>|</mo>
+    <msub>
+     <mrow><mi>T</mi>
+     </mrow>
+     <mrow><mi>n</mi>
+     </mrow>
+    </msub>
+   </mrow>
+<mo form='postfix' fence='true' stretchy='true' symmetric='true'>)</mo>
+<mo> &ap; </mo><mn>1</mn>
+   <msup>
+    <mrow><mn>0</mn>
+    </mrow>
+    <mrow>
+     <mrow><mo>-</mo><mn>4</mn>
+     </mrow>
+    </mrow>
+   </msup>
+  </mrow>
+ </mrow></math>. For every 10,000 people we release into the population, one of them has the disease. </div>
+<h2 class="section_"><a id='magicparlabel-1188' />Notes</h2>
+<div class="standard"><a id='magicparlabel-1192' />The initial condition in the SIR model governs time to peak. </div>
+</body>
+</html>
